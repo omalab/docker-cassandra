@@ -4,7 +4,7 @@
 #
 # Starts a Cassandra instance constituting a one node cluster. 
 
-FROM dmglab/cassandra-base
+FROM dmglab/cassandra:base
 
 USER root
 
