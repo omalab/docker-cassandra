@@ -5,20 +5,23 @@
 # Installs Cassandra 2.0 package. Does only basic configuration.
 # Tokens and seed nodes should be configured by child images.
 
-FROM java:openjdk-7-jre
+FROM java:openjdk-8-jre
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV CASSANDRA_VERSION 3.7
+
 # Add DataStax sources
-RUN curl -L http://debian.datastax.com/debian/repo_key | apt-key add -
-RUN echo "deb http://debian.datastax.com/community stable main" > /etc/apt/sources.list.d/datastax.list
+
+RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 514A2AD631A57A16DD0047EC749D6EEC0353B12C
+RUN echo 'deb http://www.apache.org/dist/cassandra/debian 37x main' >> /etc/apt/sources.list.d/cassandra.list
 
 # Workaround for https://github.com/docker/docker/issues/6345
 RUN ln -s -f /bin/true /usr/bin/chfn
 
-# Install Cassandra 2.0.10
+# Install Cassandra 3.7
 RUN apt-get update && \
-    apt-get install -y cassandra=2.0.10 dsc20=2.0.10-1 && \
+    apt-get install -y cassandra="$CASSANDRA_VERSION" && \
     rm -rf /var/lib/apt/lists/*
 
 ENV CASSANDRA_CONFIG /etc/cassandra
