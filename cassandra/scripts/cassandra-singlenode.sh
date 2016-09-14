@@ -33,3 +33,4 @@ if [ ! -z "$CASSANDRA_DC" ]; then
 fi
 
 exec cassandra -f
+exec "$@"
