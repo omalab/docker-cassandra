@@ -2,7 +2,7 @@
 
 # Get running container's IP
 IP=`hostname --ip-address`
-if [ $# == 1 ]; then SEEDS="$1,$IP"; 
+if [ $# == 1 ]; then SEEDS="$1,$IP";
 else SEEDS="$IP"; fi
 
 
@@ -32,5 +32,5 @@ if [ ! -z "$CASSANDRA_DC" ]; then
     echo "default=$CASSANDRA_DC:rac1" > $CASSANDRA_CONFIG/cassandra-topology.properties
 fi
 
-exec cassandra -f
+exec cassandra -f -R
 exec "$@"

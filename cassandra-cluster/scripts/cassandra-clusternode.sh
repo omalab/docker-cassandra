@@ -2,7 +2,7 @@
 
 # Get running container's IP
 IP=`hostname --ip-address | cut -f 1 -d ' '`
-if [ $# == 1 ]; then SEEDS="$1,$IP"; 
+if [ $# == 1 ]; then SEEDS="$1,$IP";
 else SEEDS="$IP"; fi
 
 # Setup cluster name
@@ -38,4 +38,4 @@ echo "JVM_OPTS=\"\$JVM_OPTS -Djava.rmi.server.hostname=$IP\"" >> $CASSANDRA_CONF
 
 echo "Starting Cassandra on $IP..."
 
-exec cassandra -f
+exec cassandra -f -R
